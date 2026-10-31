@@ -290,9 +290,9 @@
     </div>
 
     <h1 class="app-title-main" id="app-title-main">卓著樂譜</h1>
-    <h2 class="app-title-sub" id="app-title-sub">Musicbible (第一組客戶專屬)</h2>
+    <h2 class="app-title-sub" id="app-title-sub">Musicbible</h2>
 
-    <div class="pill-version" id="app-version-pill">版本 1.0.0 (憑證維護更新中)</div>
+    <div class="pill-version" id="app-version-pill">版本 1.0.0</div>
 
     <!-- 立即下載安裝膠囊按鈕 -->
     <a href="#" class="install-btn" id="btn-install-app" role="button">
@@ -363,7 +363,11 @@
       }
 
       // 2. 自動綁定 itms-services 安裝連結
-      var manifestUrl = 'https://cho075855288.github.io/musicbible/1/manifest.plist';
+      var path = window.location.href.split('?')[0].split('#')[0];
+      var baseUrl = path.substring(0, path.lastIndexOf('/') + 1);
+      if (!baseUrl.endsWith('/')) baseUrl += '/';
+
+      var manifestUrl = baseUrl + 'manifest.plist';
       var itmsUrl = 'itms-services://?action=download-manifest&url=' + encodeURIComponent(manifestUrl);
 
       var installBtn = document.getElementById('btn-install-app');
