@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="卓著樂譜">
+  <meta name="theme-color" content="#070a12">
+  
+  <title>卓著樂譜 - Musicbible</title>
+  <meta name="description" content="卓著樂譜 Musicbible iPad 專屬安裝頁面。">
+
+  <link rel="apple-touch-icon" href="app-icon.png">
+  <link rel="icon" type="image/png" href="app-icon.png">
+
+  <style>
+    :root {
+      --bg-dark: #070a12;
+      --card-bg: rgba(22, 27, 46, 0.78);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --accent-primary: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.45);
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+      --accent-gold: #fbbf24;
+      --text-main: #ffffff;
+      --text-muted: #cbd5e1;
+      --text-dim: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.22) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(217, 70, 239, 0.18) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.85) 0px, transparent 100%);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 36px 20px 60px;
+      line-height: 1.6;
+    }
+
+    /* LINE 內嵌瀏覽器警示 */
+    #line-warning-banner {
+      display: none;
+      width: 100%;
+      max-width: 580px;
+      background: linear-gradient(90deg, #b45309, #d97706);
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(217, 119, 6, 0.35);
+    }
+
+    /* 主應用卡片 */
+    .app-card {
+      width: 100%;
+      max-width: 580px;
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 36px 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.8), transparent);
+    }
+
+    /* App Logo */
+    .icon-wrapper {
+      margin-bottom: 22px;
+    }
+
+    .app-icon {
+      width: 116px;
+      height: 116px;
+      border-radius: 26px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(255, 255, 255, 0.18);
+      display: block;
+      object-fit: cover;
+      background: #1e293b;
+    }
+
+    /* 標題層次 */
+    .app-title-main {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+
+    .app-title-sub {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+
+    /* 版本標籤 */
+    .pill-version {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      margin-bottom: 28px;
+    }
+
+    /* 膠囊安裝按鈕 */
+    .install-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 32px;
+      border-radius: 50px;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 12px 32px var(--accent-glow), 0 2px 6px rgba(0, 0, 0, 0.25);
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .install-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(99, 102, 241, 0.6);
+    }
+
+    .install-btn:active {
+      transform: translateY(1px);
+    }
+
+    .install-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* 注意事項卡片（大字體清晰版） */
+    .notice-card {
+      width: 100%;
+      max-width: 580px;
+      margin-top: 28px;
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 32px 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      text-align: left;
+    }
+
+    .notice-header {
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 14px;
+    }
+
+    .notice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .notice-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .notice-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.25);
+      border: 2px solid rgba(99, 102, 241, 0.5);
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* 大字體內容：顯著大於膠囊按鈕 */
+    .notice-text {
+      font-size: 21px;
+      font-weight: 600;
+      color: #f1f5f9;
+      line-height: 1.6;
+    }
+
+    .highlight-safari {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .highlight-install {
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    /* 點擊安裝提示浮動條 */
+    #install-toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(99, 102, 241, 0.5);
+      color: #ffffff;
+      padding: 16px 28px;
+      border-radius: 24px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    #install-toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LINE 內嵌瀏覽器防呆穿透橫幅 -->
+  <aside id="line-warning-banner" role="alert">
+    ⚠️ 偵測到您正在使用 LINE 內嵌瀏覽器！請點擊右上角「...」，選擇【在 Safari 中開啟】以進行安裝。
+  </aside>
+
+  <!-- 主安裝卡片 -->
+  <main class="app-card">
+    <div class="icon-wrapper">
+      <img src="app-icon.png" alt="卓著樂譜 Logo" class="app-icon" id="app-icon-img" onerror="this.src='app-icon-512.png'">
+    </div>
+
+    <h1 class="app-title-main" id="app-title-main">卓著樂譜</h1>
+    <h2 class="app-title-sub" id="app-title-sub">Musicbible (第一組客戶專屬)</h2>
+
+    <div class="pill-version" id="app-version-pill">版本 1.0.0 (憑證維護更新中)</div>
+
+    <!-- 立即下載安裝膠囊按鈕 -->
+    <a href="#" class="install-btn" id="btn-install-app" role="button">
+      <svg viewBox="0 0 24 24">
+        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+      </svg>
+      <span>立即下載安裝</span>
+    </a>
+  </main>
+
+  <!-- 注意事項卡片（大字體） -->
+  <section class="notice-card">
+    <h3 class="notice-header">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      注意事項
+    </h3>
+
+    <div class="notice-list">
+      <!-- 第 1 點 -->
+      <div class="notice-item">
+        <div class="notice-num">1</div>
+        <div class="notice-text">
+          必須使用 <span class="highlight-safari">Safari</span> 瀏覽器
+        </div>
+      </div>
+
+      <!-- 第 2 點 -->
+      <div class="notice-item">
+        <div class="notice-num">2</div>
+        <div class="notice-text">
+          若非使用 Safari 瀏覽器，請複製網址並貼到 <span class="highlight-safari">Safari 瀏覽器</span> 的網址列
+        </div>
+      </div>
+
+      <!-- 第 3 點 -->
+      <div class="notice-item">
+        <div class="notice-num">3</div>
+        <div class="notice-text">
+          畫面跳出「要安裝 Musicbible 嗎？」，點選<span class="highlight-install">「安裝」</span>，然後按返回主畫面，可看到 APP 正在安裝中
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 點擊安裝提示浮動條 -->
+  <aside id="install-toast" role="status" aria-live="polite">
+    <span>🚀 正在觸發安裝，請返回 iPad 主畫面查看下載進度...</span>
+  </aside>
+
+  <script>
+    (function() {
+      // 1. LINE 內嵌防呆穿透
+      var ua = (navigator.userAgent || '').toLowerCase();
+      var isLine = ua.indexOf('line') > -1;
+      var isIOS = /ipad|iphone|ipod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+      if (isLine) {
+        var banner = document.getElementById('line-warning-banner');
+        if (banner) banner.style.display = 'block';
+        if (window.location.search.indexOf('openExternalBrowser=1') === -1) {
+          var sep = window.location.href.indexOf('?') > -1 ? '&' : '?';
+          window.location.href = window.location.href + sep + 'openExternalBrowser=1';
+        }
+      }
+
+      // 2. 自動綁定 itms-services 安裝連結
+      var manifestUrl = 'https://cho075855288.github.io/musicbible/1/manifest.plist';
+      var itmsUrl = 'itms-services://?action=download-manifest&url=' + encodeURIComponent(manifestUrl);
+
+      var installBtn = document.getElementById('btn-install-app');
+      var toast = document.getElementById('install-toast');
+
+      if (installBtn) {
+        installBtn.setAttribute('href', itmsUrl);
+
+        installBtn.addEventListener('click', function(e) {
+          if (!isIOS) {
+            e.preventDefault();
+            alert('💡 提醒：請在 iPad 上使用 Safari 瀏覽器開啟此網頁進行安裝！');
+            return;
+          }
+
+          if (toast) {
+            toast.classList.add('show');
+            setTimeout(function() {
+              toast.classList.remove('show');
+            }, 6000);
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
